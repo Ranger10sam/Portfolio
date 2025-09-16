@@ -55,7 +55,7 @@ section {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
     font-weight: 800;
     text-align: center;
     margin-bottom: 4rem;
@@ -111,6 +111,7 @@ section {
     font-size: 1.8rem;
     text-decoration: none;
     color: var(--text-color);
+    z-index: 101; /* Ensure logo is above mobile menu */
 }
 
 .nav-links {
@@ -131,6 +132,24 @@ section {
     color: var(--primary-color);
 }
 
+.hamburger {
+    display: none; /* Hidden by default on desktop */
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 101;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--text-color);
+}
+
 /* --- HERO SECTION --- */
 .hero {
     min-height: 100vh;
@@ -140,6 +159,7 @@ section {
     align-items: center;
     text-align: center;
     position: relative;
+    padding-top: 70px; /* Offset for fixed header */
 }
 
 .hero-content {
@@ -148,16 +168,23 @@ section {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 6rem;
+    font-size: clamp(3rem, 10vw, 6rem); /* Responsive font size */
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1rem;
 }
 
 .hero-subtitle {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 4vw, 1.4rem); /* Responsive font size */
     color: #BDBDBD;
     margin-bottom: 2rem;
+}
+
+.hero-links {
+    display: flex;
+    flex-wrap: wrap; /* Allow links to wrap on small screens */
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .hero-links a {
@@ -184,15 +211,9 @@ section {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 /* --- EXPERIENCE SECTION --- */
@@ -210,49 +231,19 @@ section {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+    flex-wrap: wrap; /* Allow wrapping */
 }
 
-.experience-header h3 {
-    font-size: 1.5rem;
-}
-
-.company {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 2rem;
-}
-
-.client-project {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.client-project:first-child {
-    border-top: none;
-}
-
-.client-project h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-.client-project ul {
-    list-style-position: inside;
-    padding-left: 0.5rem;
-}
-
-.client-project ul li {
-    margin-bottom: 0.5rem;
-    color: #BDBDBD;
-}
+.experience-header h3 { font-size: 1.5rem; }
+.company { color: var(--primary-color); font-weight: 600; margin-bottom: 2rem; }
+.client-project { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+.client-project:first-child { border-top: none; }
+.client-project h4 { font-size: 1.2rem; margin-bottom: 1rem; }
+.client-project ul { list-style-position: inside; padding-left: 0.5rem; }
+.client-project ul li { margin-bottom: 0.5rem; color: #BDBDBD; }
 
 /* --- BENTO GRID & CARDS --- */
-.bento-grid {
-    display: grid;
-    gap: 1.5rem;
-}
-
+.bento-grid { display: grid; gap: 1.5rem; }
 .bento-card {
     background-color: var(--card-color);
     border: 1px solid var(--border-color);
@@ -260,44 +251,15 @@ section {
     padding: 2rem;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
-
-.bento-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-}
+.bento-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
 
 /* --- PROJECTS SECTION --- */
-.projects .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto;
-}
-
-.project-card {
-    text-decoration: none;
-    color: inherit;
-}
-
-.project-card.large {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
-}
-
-.project-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-.project-card p {
-    color: #BDBDBD;
-}
-
-.tags {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
+.projects .bento-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto auto; }
+.project-card { text-decoration: none; color: inherit; }
+.project-card.large { grid-column: 1 / 2; grid-row: 1 / 3; }
+.project-card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+.project-card p { color: #BDBDBD; }
+.tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .tags span {
     background-color: rgba(0, 174, 239, 0.1);
     color: var(--primary-color);
@@ -306,69 +268,68 @@ section {
     font-size: 0.8rem;
     font-weight: 500;
 }
-
-.achievements-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.achievements-card ul {
-    list-style: none;
-}
-
-.achievements-card ul li {
-    margin-bottom: 0.75rem;
-    color: #BDBDBD;
-}
+.achievements-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.achievements-card ul { list-style: none; }
+.achievements-card ul li { margin-bottom: 0.75rem; color: #BDBDBD; }
 
 /* --- SKILLS SECTION --- */
-.skills-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-}
-
-.skill-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-}
+.skills-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.skill-card { display: flex; justify-content: center; align-items: center; text-align: center; font-weight: 600; font-size: 1.1rem; }
 
 /* --- CONTACT SECTION --- */
-.contact {
-    text-align: center;
-}
-
-.contact-text {
-    max-width: 600px;
-    margin: 0 auto 2.5rem auto;
-    font-size: 1.2rem;
-    color: #BDBDBD;
-}
+.contact { text-align: center; }
+.contact-text { max-width: 600px; margin: 0 auto 2.5rem auto; font-size: 1.2rem; color: #BDBDBD; }
 
 /* --- FOOTER --- */
-.footer {
-    text-align: center;
-    padding: 2rem 0;
-    border-top: 1px solid var(--border-color);
-    color: #888;
-}
+.footer { text-align: center; padding: 2rem 0; border-top: 1px solid var(--border-color); color: #888; }
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
-    .section-title {
-        font-size: 2.5rem;
+    .container {
+        padding: 0 1rem; /* Reduce side padding on mobile */
     }
 
-    .hero-title {
-        font-size: 4rem;
+    section {
+        padding: 4rem 0; /* Reduce section padding on mobile */
+    }
+
+    /* Hamburger Menu Logic */
+    .hamburger {
+        display: block; /* Show the hamburger */
+    }
+
+    .hamburger.is-active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Start off-screen */
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-color);
+        transition: 0.3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-menu.is-active {
+        left: 0; /* Slide in */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Stack links vertically */
+        gap: 3rem;
+        text-align: center;
     }
     
-    .nav-links {
-        display: none; /* Simplification for this version, a JS menu would be needed for a full mobile nav */
+    .nav-links a {
+        font-size: 1.5rem;
     }
 
+    /* Project Grid */
     .projects .bento-grid {
         grid-template-columns: 1fr;
     }
@@ -378,6 +339,7 @@ section {
         grid-row: auto;
     }
     
+    /* Experience Card Header */
     .experience-header {
         flex-direction: column;
         align-items: flex-start;
