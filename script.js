@@ -2,12 +2,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const light = document.querySelector('.cursor-light');
     
-    document.addEventListener('mousemove', (e) => {
-        light.style.left = `${e.clientX}px`;
-        light.style.top = `${e.clientY}px`;
-    });
-});
+    // Only run the effect on devices that are not touch-based
+    const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+    if (!isTouchDevice()) {
+        document.addEventListener('mousemove', (e) => {
+            light.style.left = `${e.clientX}px`;
+            light.style.top = `${e.clientY}px`;
+        });
+    } else {
+        // Hide the cursor light on touch devices
+        light.style.display = 'none';
+    }
+});
 
 // --- SCROLL REVEAL ANIMATIONS ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,4 +43,25 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.log('ScrollReveal is not loaded');
     }
+});
+
+
+// --- HAMBURGER MENU ---
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('is-active');
+        navMenu.classList.toggle('is-active');
+    });
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('is-active');
+            navMenu.classList.remove('is-active');
+        });
+    });
 });
